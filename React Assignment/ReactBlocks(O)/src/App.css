@@ -4,26 +4,31 @@
 }
 .app{
   width: 950px;
-  background-color: #dddddd;
+  background-color: silver;
   margin: 0px auto;
 }
 .header {
   height: 150px;
+  margin:10px;
   background-color: green;
 }
 .navigation {
+  vertical-align: top;
+  display: inline-block;
   height: 300px;
   width: 200px;
   background-color: blue;
 }
 .main {
+  vertical-align: top;
+  display: inline-block;
   height: 400px;
   width: 700px;
   background-color: red;
-  display:flex;
-  align-items: top;
 }
 .sub-content {
+  display: inline-block;
+  vertical-align: top;
   height: 200px;
   width: 210px;
   background-color: yellow;
@@ -32,5 +37,8 @@
   height: 120px;
   width: 660px;
   background-color: purple;
-  margin-left: 15px;
+}
+.row {
+  display:flex;
+  align-items: top;
 }
