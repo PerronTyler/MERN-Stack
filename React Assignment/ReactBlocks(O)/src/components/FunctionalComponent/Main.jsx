@@ -6,7 +6,7 @@ class Main extends Component{
     }
     render(){
         return (
-        <div className='main'>
+        <div className='main row'>  
             {this.props.children}
         </div>
         )
