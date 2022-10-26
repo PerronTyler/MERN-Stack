@@ -44,4 +44,3 @@ const pokémon = Object.freeze([
     console.log(pkmnTypePoisonOnly);
     console.log(pkmnGetFirstTypeSecondFlying);
     console.log(pkmnCountNormal);
-    
