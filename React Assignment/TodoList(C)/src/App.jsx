@@ -25,7 +25,8 @@ function App() {
   return (
 
       <div className="App">
-        <EntryForm handleSubmit={ addTask }/>
+        <EntryForm addTask={ addTask }/>
+        
         {taskElements}
       </div>
   )
