@@ -6,7 +6,6 @@ const People = () => {
   const [values, setValues] = useState(null)
   const { id } = useParams()
   const navigate = useNavigate()
-  console.log(values);
   useEffect(() => {
     console.log("Using the Force");
     axios
