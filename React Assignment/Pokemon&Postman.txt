@@ -1,0 +1,9 @@
+https://pokeapi.co/api/v2/pokemon/25
+
+https://pokeapi.co/api/v2/pokemon/bulbasaur
+
+https://pokeapi.co/api/v2/pokemon/1
+
+https://pokeapi.co/api/v2/pokemon/30
+
+https://pokeapi.co/api/v2/pokemon/80
