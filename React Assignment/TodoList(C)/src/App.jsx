@@ -13,7 +13,7 @@ function App() {
     setTasks(tasks.filter((task, indx) => indx !== targetitemindx))
   }
   const toggleTask = (targetitemindx) => {
-  const updatedTasks = tasks.map((task, indx) => {if (targetitemindx === indx) {
+    const updatedTasks = tasks.map((task, indx) => {if (targetitemindx === indx) {
     task.completed = !task.completed
       }
     return task
