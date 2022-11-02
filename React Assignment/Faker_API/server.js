@@ -1,7 +1,7 @@
-const { faker } = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker')
 const express = require('express')
 
-const app = express();
+const app = express()
 
 app.get('/', (req, res) => {
     res.status(200).send('Hello from the server side!')
