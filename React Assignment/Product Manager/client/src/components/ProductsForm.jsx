@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const initialState = {
     title: "",
-    price: 0,
+    price: '',
     description: ""
 }
 const initialState2 = {
@@ -11,9 +11,10 @@ const initialState2 = {
     price: '',
     description: ""
 }
-const ProductsForm = () => {
+const ProductsForm = (props) => {
     const [values, setValues] = useState(initialState)
     const [errors, setErrors] = useState(initialState2)
+    const [serverErrors, setServerErrors] = useState(initialState2)
     const [isValid, setIsValid] = useState(false)
     const handleChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -25,7 +26,10 @@ const ProductsForm = () => {
                 values
             )
                 .then(res=>console.log(res))
-                .catch(err=>console.log(err))
+                .catch(err=>setServerErrors(err.response.data.errors))
+            console.log(serverErrors);
+            props.handleSubmit(values)
+            setServerErrors(initialState2)
             setValues(initialState)
             setErrors(initialState2)
         }
@@ -46,8 +50,13 @@ const ProductsForm = () => {
             }
         }
         if (fieldName === 'price'){
-            if(value === 0) {
-                setErrors({...errors, [fieldName]:"price is required!"});
+            console.log(fieldName);
+            console.log(typeof value);
+            if(value === '0') {
+                setErrors({...errors, [fieldName]:"Things aren't Free!"});
+                isValidSubmission = false
+            } else if (value.length < 1) {
+                setErrors({...errors, [fieldName]:"price is required!"})
                 isValidSubmission = false
             } else {
                 setErrors({...errors, [fieldName]:""});

@@ -11,8 +11,9 @@ static findAllProducts = async (res) => {
 }
 
 static findOneSingleProduct = async (req, res) => {
+    
     try {
-        return res.json(await Product.find({_id: req.params.id}))
+        return res.json(await Product.find({_id: req.params.productId}))
     } catch (err) {
         return res.json({ message: "Product not found", error: err })
     }
