@@ -30,7 +30,7 @@ static createNewProduct = async (req, res) => {
 static updateExistingProduct = async (req, res) => {
     try {
         return res.json(await Product.findOneAndUpdate(
-            { _id: req.params.id },
+            { _id: req.params.productId },
             req.body,
             { new: true, runValidators: true }
         ))
@@ -41,7 +41,7 @@ static updateExistingProduct = async (req, res) => {
 
 static deleteAnExistingProduct = async (req, res) => {
     try {
-        return res.json(await Product.remove({ _id: req.params.id }))
+        return res.json(await Product.deleteOne({ _id: req.params.productId }))
     } catch (err) {
         return res.json({ message: 'Something went wrong', error: err })
     }
