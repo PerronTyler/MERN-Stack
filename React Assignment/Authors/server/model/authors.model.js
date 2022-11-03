@@ -5,6 +5,7 @@ const AuthorSchema = new Schema({
     name:{
         type: String,
         required: [true, "the name is required"],
+        minLength: [3, "name must be at least 3 characters"]
     }
 });
 

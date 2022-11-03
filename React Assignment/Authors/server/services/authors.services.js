@@ -22,7 +22,7 @@ static findOneSingleAuthor = async (req, res) => {
 static createNewAuthor = async (req, res) => {
     try{
         return res.status(201).json(await Author.create(req.body))
-    } catch (err) { console.log('it certainly reached the error');
+    } catch (err) {
         return res.status(422).json({ message: 'Something went wrong', error: err })
     }
 }
@@ -35,7 +35,7 @@ static updateExistingAuthor = async (req, res) => {
             { new: true, runValidators: true }
         ))
     } catch (err) {
-        return ({ message: 'Something went wrong', error: err })
+        return res.status(422).json({ message: 'Something went wrong', error: err })
     }
 }
 

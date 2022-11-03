@@ -43,23 +43,41 @@ const AuthorsForm = (props) => {
                     navigate('/')
                 })
                 .catch(err => {
-                    setServerErrors(err.response.data.errors)
-                    console.log(serverErrors)
+                const errorResponse = err.response.data.error.errors
+                const errorArr = []
+
+                for (const key in errorResponse) {
+                    errorArr.push(errorResponse[key].message)
+                }
+                setServerErrors({name: errorArr})
+                console.log(serverErrors);
                 })
 
         }
-        else if (isValid && id) {
+        else if (id) {
+            console.log('running');
             axios.put(`http://127.0.0.1:8000/api/authors/edit/${id}`,
                 values
             )
                 .then(res => {
+                    console.log('hello response');
                     setServerErrors(initialState2)
                     setValues(initialState)
                     setErrors(initialState2)
                     navigate('/')
                 })
-                .catch(err => setServerErrors(err.response.data.errors))
-            console.log(serverErrors);
+                .catch(err => {
+                    console.log('hello error');
+                    console.log(err);
+                    const errorResponse = err.response.data.error.errors
+                const errorArr = []
+
+                for (const key in errorResponse) {
+                    errorArr.push(errorResponse[key].message)
+                }
+                setServerErrors({name: errorArr})
+                console.log(serverErrors);
+                })
         }
 
     }
@@ -87,6 +105,7 @@ const AuthorsForm = (props) => {
                     <label htmlFor='name'>Name: </label>
                     <input name='name' type="text" value={values.name} onChange={handleChange} onBlur={handleValidation} />
                     {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
+                    {serverErrors.name && <p style={{ color: 'green' }}>{serverErrors.name}</p>}
                 </div>
                 <button className='Submit'>Submit Form</button>
             </form>

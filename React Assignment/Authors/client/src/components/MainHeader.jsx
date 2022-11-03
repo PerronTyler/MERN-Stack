@@ -7,8 +7,13 @@ const MainHeader = () => {
             <nav>
                 <ul>
                     <li>
-                        <NavLink to='/'>
+                        <NavLink  to='/'>
                             Authors
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/authors/new'>
+                            Create an Author
                         </NavLink>
                     </li>
                 </ul>
