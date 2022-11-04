@@ -1,5 +1,5 @@
 import express from 'express'
-import authorsRouter from './server/routes/authors.routes.js'
+import playersRouter from './server/routes/players.routes.js'
 import "./server/config/mongoose.config.js";
 import cors from 'cors'
 
@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json(), express.urlencoded({ extended: true }));
 
 const rootRouter = new express.Router()
-rootRouter.use("/api/players", authorsRouter)
+rootRouter.use("/api/players", playersRouter)
 app.use(rootRouter)
 
 
