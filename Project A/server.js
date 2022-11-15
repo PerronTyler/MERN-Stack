@@ -19,6 +19,7 @@ rootRouter.use("/api/cards", cardsRouter)
 rootRouter.use("/api/enemies", enemiesRouter)
 rootRouter.use("/api/bosses", bossesRouter)
 rootRouter.use("/api/events", eventsRouter)
+rootRouter.use("/api/players", playersRouter)
 app.use(rootRouter)
 
 

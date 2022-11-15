@@ -1,19 +1,10 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
-const EnemySchema = new Schema({
-    name: {
-        type: String,
-        required: [true, "the name is required"],
-        minLength: [3, "name must be at least 3 characters"]
-    },
+const PlayerSchema = new Schema({
     _id: {
         type: Number,
         required: [true, "id is required"]
-    },
-    magnitude: {
-        type: Number,
-        required: [true, "magnitude is required"]
     },
     training:{
             type: String,
@@ -24,6 +15,6 @@ const EnemySchema = new Schema({
             required: [true, "health is required"]
         }
 })
-const Enemy = model('enemy', EnemySchema);
+const Player = model('player', PlayerSchema);
 
-export default Enemy
+export default Player
