@@ -6,6 +6,7 @@ import cardsRouter from './server/routes/cards.routes.js'
 import bossesRouter from './server/routes/bosses.routes.js';
 import enemiesRouter from './server/routes/enemies.routes.js';
 import eventsRouter from './server/routes/events.routes.js';
+// import playersRouter from './server/routes/players.routes'
 
 const app = express();
 const port = 8000
@@ -19,7 +20,7 @@ rootRouter.use("/api/cards", cardsRouter)
 rootRouter.use("/api/enemies", enemiesRouter)
 rootRouter.use("/api/bosses", bossesRouter)
 rootRouter.use("/api/events", eventsRouter)
-rootRouter.use("/api/players", playersRouter)
+// rootRouter.use("/api/players", playersRouter)
 app.use(rootRouter)
 
 

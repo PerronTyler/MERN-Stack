@@ -7,7 +7,6 @@ const Main = () => {
     const [cards, setCards] = useState(null)
     const [events, setEvents] = useState(null)
     const [enemies, setEnemies] = useState(null)
-    const [player, setPlayer] = useState(initialState)
 
     useEffect(() => {
         if(!cards){

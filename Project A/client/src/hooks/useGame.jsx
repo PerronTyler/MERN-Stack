@@ -14,6 +14,7 @@ const useGame = (cards, events, enemies) => {
     const [selected, setSelected] = useState([])
     const [usedDeck, setUsedDeck] = useState([])
     const [player, setPlayer] = useState(initialState)
+    const [foe, setFoe] = useState(null)
 
 // Deck, Card, and Hand functions
 
@@ -49,13 +50,18 @@ const useGame = (cards, events, enemies) => {
         const randomCardIndx = Math.floor(Math.random()* deck.length)
         setHand([...hand, deck[randomCardIndx]])
         setUsedDeck([...usedDeck, deck[randomCardIndx]])
-        setDeck([...deck].splice(randomCardIndx,1))
+        deck.splice(randomCardIndx,1)
         }
     }
     const handleSelected = (card) => {
         setSelected([...selected, card])
         const indx = hand.indexOf(card)
-        setHand([...hand].splice(indx,1))
+        hand.splice(indx,1)
+    }
+    const handleHand = (card) => {
+        setHand([...hand, card])
+        const indx = selected.indexOf(card)
+        selected.splice(indx,1)
     }
     const shuffleDeck = () => {
         setDeck(usedDeck)
@@ -69,16 +75,141 @@ const useGame = (cards, events, enemies) => {
     }
     // player, enemy, boss functions
     const getRandomEnemy = () => {
-        return enemies[Math.floor(Math.random()* (enemies.length))]
+        const newFoe = enemies[Math.floor(Math.random()* (enemies.length))]
+        setFoe(newFoe)
     }
     const sanctuaryHeal = () => {
-        setPlayer([...player, player.health += 5])
+        if (player.health <= 15){
+            const newHp = player.health + 5
+            console.log(newHp);
+            setPlayer({...player, health: newHp})
+            navigate('/dungeoncrawl')
+        } else if (player.health > 15){
+            setPlayer({...player, health: 20})
+            navigate('/dungeoncrawl')
+        }
     }
     const sanctuaryTraining = () => {
-        setPlayer([...player, player.training += 1])
+        const newTrainingLevel = player.training + 1
+        setPlayer({...player, training: newTrainingLevel})
+        navigate('/dungeoncrawl')
+    }
+    const mend = () => {
+            if (player.health <= 19){
+                const newHp = player.health + 1
+                setPlayer({...player, health: newHp})
+            }
+        }
+    const heal = () => {
+            if (player.health <= 17){
+                const newHp = player.health + 3
+                setPlayer({...player, health: newHp})
+            } else {
+                setPlayer({...player, health: 20})
+            }
+        }
+    const miss = () => {
+            console.log('You Missed');
+            alert('You Missed!')
+        }
+    const strike = () => {
+        if (foe.health > 3){
+            const newHp = foe.health - 3
+            setFoe({...foe, health: newHp})
+        } else {
+            alert(`You Killed ${foe.name}`)
+            const newKillCount = player.kills + 1
+            setPlayer({...player, kills: newKillCount})
+            setFoe(null)
+            navigate('/dungeoncrawl')
+        }
+    }
+    const poke = () => {
+        if (foe.health > 1){
+            const newHp = foe.health - 1
+            setFoe({...foe, health: newHp})
+        } else {
+            alert(`You Killed ${foe.name}`)
+            const newKillCount = player.kills + 1
+            setPlayer({...player, kills: newKillCount})
+            setFoe(null)
+            navigate('/dungeoncrawl')
+        }
+    }
+    const handleSubmit = () => {
+        console.log('submit pressed');
+        const randomCardIndx = Math.floor(Math.random()* selected.length)
+        const submitCard = selected[randomCardIndx]
+        console.log(submitCard)
+        if (submitCard.name === 'strike') {
+            alert(`You played Strike ${submitCard.description}`);
+            strike()
+            setHand([])
+            setSelected([])
+            if (foe && player.health > foe.magnitude){
+                alert(`${foe.name} hit you for ${foe.magnitude} damage`)
+                const newHp = player.health - foe.magnitude
+                setPlayer({...player, health: newHp})
+            } else if (foe && player.health <= foe.magnitude) {
+                alert(`you have been slain, better luck next run!`)
+                navigate('/')
+            }
+        } else if (submitCard.name === 'Poke') {
+            alert(`You played Poke ${submitCard.description}`);
+            poke()
+            setHand([])
+            setSelected([])
+            if (foe && player.health > foe.magnitude){
+                alert(`${foe.name} hit you for ${foe.magnitude} damage`)
+                const newHp = player.health - foe.magnitude
+                setPlayer({...player, health: newHp})
+            } else if (foe && player.health <= foe.magnitude) {
+                alert(`you have been slain, better luck next run!`)
+                navigate('/')
+            }
+        } else if (submitCard.name === 'Miss') {
+            alert(`You played Miss ${submitCard.description}`);
+            miss()
+            setHand([])
+            setSelected([])
+            if (foe && player.health > foe.magnitude){
+                alert(`${foe.name} hit you for ${foe.magnitude} damage`)
+                const newHp = player.health - foe.magnitude
+                setPlayer({...player, health: newHp})
+            } else if (foe && player.health <= foe.magnitude) {
+                alert(`you have been slain, better luck next run!`)
+                navigate('/')
+            }
+        } else if (submitCard.name === 'Heal') {
+            alert(`You played Heal ${submitCard.description}`);
+            heal()
+            setHand([])
+            setSelected([])
+            if (foe && player.health > foe.magnitude){
+                alert(`${foe.name} hit you for ${foe.magnitude} damage`)
+                const newHp = player.health - foe.magnitude
+                setPlayer({...player, health: newHp})
+            } else if (foe && player.health <= foe.magnitude) {
+                alert(`you have been slain, better luck next run!`)
+                navigate('/')
+            }
+        }else if (submitCard.name === 'Mend') {
+            alert(`You played Mend ${submitCard.description}`);
+            mend()
+            setHand([])
+            setSelected([])
+            if (foe && player.health > foe.magnitude){
+                alert(`${foe.name} hit you for ${foe.magnitude} damage`)
+                const newHp = player.health - foe.magnitude
+                setPlayer({...player, health: newHp})
+            } else if (foe && player.health <= foe.magnitude) {
+                alert(`you have been slain, better luck next run!`)
+                navigate('/')
+            }
+        }
     }
 return {
-    player, deck, hand, selected, usedDeck, addRandomCardToDeck, addCardToDeck, drawCardToHand, getRandomChoices, handleSelected, shuffleDeck, getRandomEvent, getRandomEnemy, sanctuaryHeal, sanctuaryTraining  
+    foe, player, deck, hand, selected, usedDeck, handleSubmit, handleHand, addRandomCardToDeck, addCardToDeck, drawCardToHand, getRandomChoices, handleSelected, shuffleDeck, getRandomEvent, getRandomEnemy, sanctuaryHeal, sanctuaryTraining, mend, heal, miss  
 }
 }
 
