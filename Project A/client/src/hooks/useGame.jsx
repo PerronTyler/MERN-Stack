@@ -97,15 +97,15 @@ const useGame = (cards, events, enemies) => {
     const mend = () => {
             if (player.health <= 19){
                 const newHp = player.health + 1
-                setPlayer({...player, health: newHp})
+                player.health = newHp
             }
         }
     const heal = () => {
             if (player.health <= 17){
                 const newHp = player.health + 3
-                setPlayer({...player, health: newHp})
+                player.health = newHp
             } else {
-                setPlayer({...player, health: 20})
+                player.health = 20
             }
         }
     const miss = () => {
@@ -119,7 +119,9 @@ const useGame = (cards, events, enemies) => {
         } else {
             alert(`You Killed ${foe.name}`)
             const newKillCount = player.kills + 1
-            setPlayer({...player, kills: newKillCount})
+            console.log('new kill count', newKillCount);
+            player.kills = newKillCount
+            foe.health = 0
             setFoe(null)
             navigate('/dungeoncrawl')
         }
@@ -131,7 +133,8 @@ const useGame = (cards, events, enemies) => {
         } else {
             alert(`You Killed ${foe.name}`)
             const newKillCount = player.kills + 1
-            setPlayer({...player, kills: newKillCount})
+            player.kills = newKillCount
+            foe.health = 0
             setFoe(null)
             navigate('/dungeoncrawl')
         }
@@ -146,11 +149,11 @@ const useGame = (cards, events, enemies) => {
             strike()
             setHand([])
             setSelected([])
-            if (foe && player.health > foe.magnitude){
+            if (foe.health != 0 && player.health > foe.magnitude){
                 alert(`${foe.name} hit you for ${foe.magnitude} damage`)
                 const newHp = player.health - foe.magnitude
                 setPlayer({...player, health: newHp})
-            } else if (foe && player.health <= foe.magnitude) {
+            } else if (foe.health != 0 && player.health <= foe.magnitude) {
                 alert(`you have been slain, better luck next run!`)
                 navigate('/')
             }
