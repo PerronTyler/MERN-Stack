@@ -162,7 +162,7 @@ const useGame = (cards, events, enemies) => {
             poke()
             setHand([])
             setSelected([])
-            if (foe && player.health > foe.magnitude){
+            if (foe.health != 0 && player.health > foe.magnitude){
                 alert(`${foe.name} hit you for ${foe.magnitude} damage`)
                 const newHp = player.health - foe.magnitude
                 setPlayer({...player, health: newHp})
